@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class UserController extends Controller{
   private $userModel;
@@ -40,7 +41,8 @@ class UserController extends Controller{
           if(password_verify($_POST['pwd'], $userInfo->mdp)){
             $data = [
               'username' => $userInfo->username,
-              'userID' => $userInfo->ID
+              'userID' => $userInfo->ID,
+              'userEmail' => $userInfo->email
             ];
             //check role
             if($userInfo->role == 2){
@@ -66,5 +68,12 @@ class UserController extends Controller{
     }else{
       $this->view('pages/login');
     }
+  }
+
+  public function signOut(){
+    session_destroy();
+    $bye = "See You Soon!";
+    $data = ['signOut' => $bye];
+    $this->view('pages/index', $data);
   }
 }

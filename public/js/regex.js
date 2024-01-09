@@ -29,7 +29,7 @@ form.addEventListener('submit', e => {
 
   var passwordValue = password.value;
 
-  if(NameRegex.test(fullName.value) && EmailRegex.test(email.value) && PasswordRegex.test(passwordValue) && (passwordValue === repeatPassword)){
+  if(NameRegex.test(fullName.value) && EmailRegex.test(email.value) && PasswordRegex.test(passwordValue) && (passwordValue === repeatPassword.value)){
     form.submit();
   }
 })

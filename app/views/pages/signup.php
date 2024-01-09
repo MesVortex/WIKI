@@ -19,12 +19,12 @@ require_once  APPROOT.'/views/includes/header.php';
     </div>
     <div class="mb-5">
       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Your password</label>
-      <input type="password" id="password" name="pwd" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <input type="password" id="password" name="pwd" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••">
       <p class=" hidden mt-2 text-sm text-red-600" id="PasswordInputHelp">Your password must be at least 8 characters & have at least one number!</p>
     </div>
     <div class="mb-5">
       <label for="repeatPassword" class="block mb-2 text-sm font-medium text-gray-900 ">Repeat password</label>
-      <input type="password" id="repeatPassword" name="repeat-pwd" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <input type="password" id="repeatPassword" name="repeat-pwd" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••">
       <p class=" hidden mt-2 text-sm text-red-600" id="ReapeatPasswordInputHelp">Password doesn't match!</p>
     </div>
     <?php
