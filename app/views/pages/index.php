@@ -1,1 +1,2 @@
-<h1>hi</h1>
+<h1>hello <?php echo $data['username']?></h1>
+<p><?php echo $data['userID']?></p>

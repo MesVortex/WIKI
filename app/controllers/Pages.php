@@ -9,4 +9,12 @@ class Pages extends Controller{
     $this->view('pages/index');
   }
 
+  public function signUp(){
+    $this->view('pages/signup');
+  }
+
+  public function login(){
+    $this->view('pages/login');
+  }
+
 }
