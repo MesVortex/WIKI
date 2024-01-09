@@ -18,7 +18,7 @@ class Pages extends Controller{
   }
 
   public function admin(){
-    $this->view('pages/dashboard');
+    $this->view('admin/dashboard');
   }
 
 }

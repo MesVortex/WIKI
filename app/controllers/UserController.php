@@ -48,7 +48,7 @@ class UserController extends Controller{
             if($userInfo->role == 2){
               $this->view('pages/index', $data);
             }else{
-              $this->view('pages/dashboard', $data);
+              $this->view('admin/dashboard', $data);
             }
           }else{
             $Err = "Password Incorrect";
