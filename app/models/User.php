@@ -8,6 +8,11 @@ class User {
   }
 
   public function signUp($name, $email, $password, $role){
+    $user = $this->findUserByEmail($email);
+    // checking if user laready exists
+    if($user){
+      return false;
+    }
     $query = "INSERT INTO user(username, email, mdp, role) VALUES(:name, :email, :password, :role)";
     $this->pdo->query($query);
     $this->pdo->bind(':name', $name);
@@ -17,7 +22,7 @@ class User {
     return $this->pdo->execute();
   }
 
-  public function login($email){
+  public function findUserByEmail($email){
     $query = "SELECT * FROM user as u WHERE u.email = :email";
     $this->pdo->query($query);
     $this->pdo->bind(':email', $email);

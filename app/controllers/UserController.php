@@ -33,7 +33,7 @@ class UserController extends Controller{
   public function signIn(){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if(isset($_POST['email']) && isset($_POST['pwd'])){
-        $userInfo = $this->userModel->login($_POST['email']);
+        $userInfo = $this->userModel->findUserByEmail($_POST['email']);
         // check if user is found
         if($userInfo){
           // check password match
@@ -46,19 +46,25 @@ class UserController extends Controller{
             if($userInfo->role == 2){
               $this->view('pages/index', $data);
             }else{
-              $this->view('pages/admin', $data);
+              $this->view('pages/dashboard', $data);
             }
           }else{
-            echo 'mdp ghalat';
+            $Err = "Password Incorrect";
+            $data = ['err' => $Err];
+            $this->view('pages/login', $data);
           }
         }else{
-          echo 'user not found';
+          $Err = "User not found";
+          $data = ['err' => $Err];
+          $this->view('pages/login', $data);
         }
       }else{
-        echo 'empty inputs';
+        $Err = "please fill out all the inputs first!";
+        $data = ['err' => $Err];
+        $this->view('pages/login', $data);
       }
     }else{
-      echo 'here';
+      $this->view('pages/login');
     }
   }
 }

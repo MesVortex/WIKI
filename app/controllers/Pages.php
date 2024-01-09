@@ -17,4 +17,8 @@ class Pages extends Controller{
     $this->view('pages/login');
   }
 
+  public function admin(){
+    $this->view('pages/dashboard');
+  }
+
 }
