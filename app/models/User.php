@@ -34,4 +34,11 @@ class User {
       return false;
     }
   }
+
+  public function countUsers(){
+    $query = "SELECT COUNT(user.ID) as userCount FROM user";
+    $result = $this->pdo->directQuery($query);
+    return $result->userCount;
+  }
+
 }

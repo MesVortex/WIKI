@@ -18,6 +18,17 @@ class Database {
   }
 
   // Prepare statement with query
+  public function directQuery($sql){
+    $result = $this->dbh->query($sql);
+    return $result->fetch(PDO::FETCH_OBJ);
+  }
+
+  public function directQueryMultiple($sql){
+    $result = $this->dbh->query($sql);
+    return $result->fetchAll(PDO::FETCH_OBJ);
+  }
+
+  // Prepare statement with query
   public function query($sql){
     $this->stmt = $this->dbh->prepare($sql);
   }

@@ -39,16 +39,20 @@ class UserController extends Controller{
         if($userInfo){
           // check password match
           if(password_verify($_POST['pwd'], $userInfo->mdp)){
-            $data = [
-              'username' => $userInfo->username,
-              'userID' => $userInfo->ID,
-              'userEmail' => $userInfo->email
-            ];
+            // $data = [
+            //   'username' => $userInfo->username,
+            //   'userID' => $userInfo->ID,
+            //   'userEmail' => $userInfo->email
+            // ];
+            // fill session info
+            $_SESSION['username'] = $userInfo->username;
+            $_SESSION['userID'] = $userInfo->ID;
+            $_SESSION['email'] = $userInfo->email;            
             //check role
             if($userInfo->role == 2){
-              $this->view('pages/index', $data);
+              header('Location:'. URLROOT .'/pages/index');
             }else{
-              $this->view('admin/dashboard', $data);
+              header('Location:'. URLROOT .'/pages/admin');
             }
           }else{
             $Err = "Password Incorrect";

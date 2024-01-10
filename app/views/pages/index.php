@@ -3,11 +3,11 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
   session_start();
 }
 
-if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
-  $_SESSION['username'] = $data['username'];
-  $_SESSION['userID'] = $data['userID'];
-  $_SESSION['email'] = $data['userEmail'];
-}
+// if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
+//   $_SESSION['username'] = $data['username'];
+//   $_SESSION['userID'] = $data['userID'];
+//   $_SESSION['email'] = $data['userEmail'];
+// }
 require_once  APPROOT.'/views/includes/header.php';
 ?>
 <body>
@@ -15,10 +15,10 @@ require_once  APPROOT.'/views/includes/header.php';
   <header>
     <nav class="bg-white border-gray-200">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="" class="h-8" alt="Flowbite Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap">Flowbite</span>
-      </a>
+        <a href="https://flowbite.com" class="flex ms-2 md:me-24">
+          <img src="<?php echo URLROOT ?>/img/logo.png" class="h-8" alt="Wiki Logo" />
+          <span class="self-center text-gray-500 text-xl font-bold sm:text-2xl whitespace-nowrap">iki</span>
+        </a>
       <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         <?php
         if(isset($_SESSION['username']) && isset($_SESSION['userID']) && isset($_SESSION['email'])){
