@@ -15,14 +15,20 @@ class Pages extends Controller{
 
   public function index(){
     $categories = $this->categoryModel->getAllCategories();
+    $latestWikis = $this->wikiModel->getLatestWikis();
     $data = [
-      'allCategories' => $categories
+      'allCategories' => $categories,
+      'latestWikis' => $latestWikis
     ];
     $this->view('pages/index', $data);
   }
 
   public function explore(){
-    $this->view('pages/explore');
+    $wikis = $this->wikiModel->getAllWikis();
+    $data = [
+      'allWikis' => $wikis
+    ];
+    $this->view('pages/explore', $data);
   }
 
   public function signUp(){
@@ -42,6 +48,21 @@ class Pages extends Controller{
     ];
 
     $this->view('author/addWiki', $data);
+  }
+
+  public function wikiPage(){   
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      if(isset($_POST['wikiID'])){
+        $wikiID = filter_var($_POST['wikiID'], FILTER_SANITIZE_NUMBER_INT);
+        $wiki = $this->wikiModel->getWiki($wikiID);
+        if($wiki){
+          $data = [
+            'currentWiki' => $wiki
+          ];
+          $this->view('pages/wikiPage', $data);  
+        }
+      }
+    }
   }
 
   public function account(){

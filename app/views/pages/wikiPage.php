@@ -1,4 +1,18 @@
-<header class="">
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  session_start();
+}
+
+// if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
+//   $_SESSION['username'] = $data['username'];
+//   $_SESSION['userID'] = $data['userID'];
+//   $_SESSION['email'] = $data['userEmail'];
+// }
+require_once  APPROOT.'/views/includes/header.php';
+?>
+<body>
+
+  <header class="">
     <nav class="bg-white border-gray-200">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com" class="flex ms-2">
@@ -63,3 +77,38 @@
       </div>
     </nav>
   </header>
+
+<section class=" p-10">
+  <?php
+    if(isset($data['currentWiki'])){
+      $wiki = $data['currentWiki'];
+      $tags = explode(',', $wiki->tagName);
+  ?>
+  <div>
+    <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span><?php echo $wiki->name ?></span>
+    <h2 class="text-4xl font-extrabold dark:text-white mt-3"><?php echo $wiki->titre ?></h2>
+  </div>
+  <p class="my-4 text-lg text-gray-500"><?php echo $wiki->contenu ?></p>
+  <!-- <p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">Deliver great service experiences fast - without the complexity of traditional ITSM solutions. Accelerate critical development work, eliminate toil, and deploy changes with ease.</p> -->
+  <?php
+    foreach($tags as $t){
+  ?>
+  <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"><?php echo $t ?></span>
+  <?php
+    }
+  ?>
+  <div class="flex items-center justify-center mt-6 space-x-3 rtl:space-x-reverse">
+    <img class="w-6 h-6 rounded-full" src="<?php echo URLROOT ?>/img/blue-user-icon-of-profile-and-account-vector-42404464.jpg" alt="profile picture">
+    <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700">
+      <cite class="pe-3 font-medium text-gray-900 dark:text-white"><?php echo $wiki->username ?></cite>
+      <cite class="ps-3 text-sm text-gray-500 dark:text-gray-400">Author</cite>
+    </div>
+  </div>
+  <?php
+    }
+  ?>
+</section>
+
+<?php 
+require_once APPROOT.'/views/includes/footer.php';
+?>

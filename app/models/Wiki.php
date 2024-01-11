@@ -40,9 +40,48 @@ class Wiki {
 
   }
 
-  public function showWiki(){
-    $query = "";
+  public function getWiki($wikiID){
+    $query = "SELECT w.ID, w.titre, w.contenu, u.username, GROUP_CONCAT(t.name) as tagName, c.name
+              FROM wiki as w 
+              JOIN wiki_tag as wt 
+              ON w.ID = wt.wikiID 
+              JOIN user as u 
+              ON u.ID = w.authorID 
+              JOIN tag as t 
+              ON t.ID = wt.tagID
+              JOIN categorie as c
+              ON c.ID = w.categorieID
+              GROUP BY w.ID, w.titre, w.contenu, u.username, c.name
+              HAVING w.ID = :wikiID";
+    $this->pdo->query($query);
+    $this->pdo->bind(':wikiID', $wikiID);
+    $response = $this->pdo->execute();
+    if($response){
+      $result = $this->pdo->single();
+      return $result;
+    }else{
+      return false;
+    }
+  }
+
+  public function getAllWikis(){
+    $query = "SELECT w.ID, w.titre, w.contenu, u.username
+              FROM wiki as w
+              JOIN user as u 
+              ON u.ID = w.authorID";
     $result = $this->pdo->directQueryMultiple($query);
+    return $result;
+  }
+
+  public function getLatestWikis(){
+    $query = "SELECT w.ID, w.titre, w.contenu, u.username
+              FROM wiki as w
+              JOIN user as u 
+              ON u.ID = w.authorID 
+              ORDER BY w.ID DESC
+              LIMIT 4";
+    $result = $this->pdo->directQueryMultiple($query);
+    return $result;
   }
 
 }

@@ -27,5 +27,4 @@ class WikiController extends Controller{
       }
     }
   }
-
 }
