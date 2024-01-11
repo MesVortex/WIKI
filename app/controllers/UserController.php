@@ -76,8 +76,9 @@ class UserController extends Controller{
 
   public function signOut(){
     session_destroy();
-    $bye = "See You Soon!";
-    $data = ['signOut' => $bye];
-    $this->view('pages/index', $data);
+    // $bye = "See You Soon!";
+    // $data = ['signOut' => $bye];
+    // $this->view('pages/index', $data);
+    header('Location:'. URLROOT .'/pages/index');
   }
 }
