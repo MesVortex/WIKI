@@ -99,11 +99,11 @@ require_once  APPROOT.'/views/includes/header.php';
   ?>
 <section class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
   <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-    <a href="<?php echo URLROOT ?>/pages/explore" class="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-blue-700 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800">
-      <span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 me-3 font-bold">All</span> <span class="text-sm font-medium">Wanna see more? See what Wiki has to offer</span> 
-      <svg class="w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+    <a href="<?php echo URLROOT ?>/pages/index" class="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-blue-700 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800">
+      <svg class="w-2.5 h-2.5 me-2 rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
       </svg>
+      <span class="text-sm font-medium">Wanna see our latest and hottest?</span> <span class="text-xs bg-blue-600 rounded-full text-white font-bold px-4 py-1.5 ms-3">Trending</span>
     </a>
     <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world's potential</h1>
     <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
@@ -119,40 +119,7 @@ require_once  APPROOT.'/views/includes/header.php';
   </div>
 </section>
 
-<div class="flex justify-around gap-2.5">
-  <section class="p-4 border-4 rounded-lg">
-    <h2 class="mb-4 flex items-center justify-between text-2xl font-extrabold dark:text-white">Categories<span class="bg-yellow-100 text-yellow-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2"><i class="fa-solid fa-fire"></i></span></h2>
-    <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-      <?php
-      if(isset($data['allCategories'])){
-        foreach($data['allCategories'] as $category){
-      ?>
-      <li class="py-2">
-          <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <div class="flex-shrink-0">
-              <i class="fa-solid fa-layer-group text-gray-500"></i>
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-bold text-gray-900 truncate dark:text-white">
-                <?php echo $category->name;?>
-              </h3>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                Recently Added
-              </p>
-            </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-              <?php echo $category->ID;?>
-            </div>
-          </div>
-      </li>
-      <?php
-        }
-      }
-      ?>
-    </ul>
-  </section>
-  <section class="flex gap-5 flex-wrap justify-around p-4 border-4 rounded-lg">
-    <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl lg:mx-16 dark:text-white">Explore Our <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">Latest</mark> Wikis For Today</h2>
+<section class="flex gap-5 flex-wrap justify-around">
     <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
@@ -162,7 +129,7 @@ require_once  APPROOT.'/views/includes/header.php';
           <div class="flex items-center justify-center">
             <img class="rounded-full w-9 h-9" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png" alt="profile picture">
             <div class="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-              <div>Bonnie Green</div>
+              <div>gsdgsdfgdg</div>
               <div class="text-sm text-gray-500 dark:text-gray-400 ">Author</div>
             </div>
           </div> 
@@ -237,8 +204,7 @@ require_once  APPROOT.'/views/includes/header.php';
           </a>
         </div> 
     </div>
-  </section>
-</div>
+</section>
 
 
 <?php 

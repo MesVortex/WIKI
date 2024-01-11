@@ -14,7 +14,15 @@ class Pages extends Controller{
   }
 
   public function index(){
-    $this->view('pages/index');
+    $categories = $this->categoryModel->getAllCategories();
+    $data = [
+      'allCategories' => $categories
+    ];
+    $this->view('pages/index', $data);
+  }
+
+  public function explore(){
+    $this->view('pages/explore');
   }
 
   public function signUp(){
@@ -23,6 +31,14 @@ class Pages extends Controller{
 
   public function login(){
     $this->view('pages/login');
+  }
+
+  public function addWiki(){
+    $this->view('author/addWiki');
+  }
+
+  public function account(){
+    $this->view('author/account');
   }
 
   public function admin(){
@@ -41,6 +57,14 @@ class Pages extends Controller{
       'allCategories' => $categories
     ];
     $this->view('admin/categories', $data);
+  }
+
+  public function tagsDash(){
+    $tags = $this->tagModel->getAlltags();
+    $data = [
+      'allTags' => $tags
+    ];
+    $this->view('admin/tags', $data);
   }
 
 }

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 class CategoryController extends Controller{
   private $categoryModel;
@@ -41,7 +40,7 @@ class CategoryController extends Controller{
   public function modify(){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if(isset($_POST['categoryID']) && isset($_POST['newCategoryName'])){
-        $result = $this->categoryModel->modifyCategory($_POST['categoryID'], );
+        $result = $this->categoryModel->modifyCategory($_POST['categoryID'], $_POST['newCategoryName']);
         if($result){
           header('Location:'. URLROOT .'/pages/categoriesDash');
         }else{
