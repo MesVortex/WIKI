@@ -34,7 +34,14 @@ class Pages extends Controller{
   }
 
   public function addWiki(){
-    $this->view('author/addWiki');
+    $categories = $this->categoryModel->getAllCategories();
+    $tags = $this->tagModel->getAllTags();
+    $data = [
+      'allCategories' => $categories,
+      'allTags' => $tags
+    ];
+
+    $this->view('author/addWiki', $data);
   }
 
   public function account(){
