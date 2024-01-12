@@ -18,7 +18,7 @@ class Pages extends Controller{
   }
 
   public function index(){
-    $categories = $this->categoryModel->getAllCategories();
+    $categories = $this->categoryModel->getLatestCategories();
     $latestWikis = $this->wikiModel->getLatestWikis();
     $data = [
       'allCategories' => $categories,
@@ -28,7 +28,7 @@ class Pages extends Controller{
   }
 
   public function explore(){
-    $wikis = $this->wikiModel->getAllWikis();
+    $wikis = $this->wikiModel->getAllUnarchivedWikis();
     $data = [
       'allWikis' => $wikis
     ];
@@ -107,6 +107,14 @@ class Pages extends Controller{
       'allTags' => $tags
     ];
     $this->view('admin/tags', $data);
+  }
+  
+  public function wikisDash(){
+    $wikis = $this->wikiModel->getAllwikis();
+    $data = [
+      'allWikis' => $wikis
+    ];
+    $this->view('admin/wikis', $data);
   }
 
 }

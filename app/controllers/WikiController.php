@@ -43,4 +43,20 @@ class WikiController extends Controller{
       }
     }
   }
+
+  public function archive(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      if(isset($_POST['wikiID'])){
+        $wikiID = filter_var($_POST['wikiID'], FILTER_SANITIZE_NUMBER_INT);
+        $result = $this->wikiModel->archiveWiki($wikiID);
+        if($result){
+          header('Location:'. URLROOT .'/pages/wikisDash');
+        }else{
+          $Err = "unkown error!";
+          $data = ['err' => $Err];  
+          $this->view('pages/index', $data);
+        }
+      }
+    }
+  }
 }

@@ -19,6 +19,12 @@ class Category {
     return $result;
   }
 
+  public function getLatestCategories(){
+    $query = "SELECT * FROM categorie ORDER BY categorie.id DESC LIMIT 4";
+    $result = $this->pdo->directQueryMultiple($query);
+    return $result;
+  }
+
   public function addCategory($name){
     $query = "INSERT INTO categorie(name) VALUES(:name)";
     $this->pdo->query($query);

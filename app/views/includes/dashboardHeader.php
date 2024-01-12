@@ -83,7 +83,7 @@
           </li>
 
           <li>
-              <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 ">
+              <a href="<?php echo URLROOT?>/pages/wikisDash" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 ">
                 <i class="fa-solid fa-newspaper fa-lg w-5 text-gray-500"></i>
                 <span class="flex-1 ms-3 whitespace-nowrap">Wikis</span>
                 <span class="inline-flex items-center justify-center px-2 ms-3"><i class="fa-regular fa-lightbulb text-gray-500"></i></span>

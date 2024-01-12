@@ -52,6 +52,18 @@ class Wiki {
     }
   }
 
+  public function archiveWiki($wikiID){
+    $query = "UPDATE wiki SET wiki.status = 0 WHERE wiki.ID = :wikiID";
+    $this->pdo->query($query);
+    $this->pdo->bind(':wikiID', $wikiID);
+    $response = $this->pdo->execute();
+    if($response){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   public function getWiki($wikiID){
     $query = "SELECT w.ID, w.titre, w.contenu, w.authorID, u.username, GROUP_CONCAT(t.name) as tagName, c.name
               FROM wiki as w 
@@ -77,10 +89,20 @@ class Wiki {
   }
 
   public function getAllWikis(){
-    $query = "SELECT w.ID, w.titre, w.contenu, u.username
+    $query = "SELECT w.ID, w.titre, w.contenu, w.status, u.username
               FROM wiki as w
               JOIN user as u 
               ON u.ID = w.authorID";
+    $result = $this->pdo->directQueryMultiple($query);
+    return $result;
+  }
+
+  public function getAllUnarchivedWikis(){
+    $query = "SELECT w.ID, w.titre, w.contenu, w.status, u.username
+              FROM wiki as w
+              JOIN user as u 
+              ON u.ID = w.authorID
+              WHERE status = 1";
     $result = $this->pdo->directQueryMultiple($query);
     return $result;
   }
@@ -90,7 +112,8 @@ class Wiki {
               FROM wiki as w
               JOIN user as u 
               ON u.ID = w.authorID 
-              WHERE w.authorID = :authorID";
+              WHERE w.authorID = :authorID
+              AND w.status = 1";
     $this->pdo->query($query);
     $this->pdo->bind(':authorID', $authorID);
     $response = $this->pdo->execute();
@@ -111,6 +134,7 @@ class Wiki {
               FROM wiki as w
               JOIN user as u 
               ON u.ID = w.authorID 
+              WHERE w.status = 1
               ORDER BY w.ID DESC
               LIMIT 4";
     $result = $this->pdo->directQueryMultiple($query);
