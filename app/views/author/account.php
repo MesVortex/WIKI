@@ -1,65 +1,91 @@
-<header class="">
-    <nav class="bg-white border-gray-200">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com" class="flex ms-2">
-          <img src="<?php echo URLROOT ?>/img/logo.png" class="h-8" alt="Wiki Logo" />
-          <span class="self-center text-gray-500 text-xl font-bold sm:text-2xl whitespace-nowrap">iki</span>
-        </a>
-      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <?php
-        if(isset($_SESSION['username']) && isset($_SESSION['userID']) && isset($_SESSION['email'])){
-          echo 
-          '<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-            <span class="sr-only">Open user menu</span>
-            <img class="w-8 h-8 rounded-full" src="'.URLROOT.'/img/blue-user-icon-of-profile-and-account-vector-42404464.jpg" alt="user photo">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-            <div class="px-4 py-3">
-              <span class="block text-sm text-gray-900 dark:text-white">'. $_SESSION['username'] .'</span>
-              <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">'. $_SESSION['email'] .'</span>
+<?php
+  if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+  }
+
+  // if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
+  //   $_SESSION['username'] = $data['username'];
+  //   $_SESSION['userID'] = $data['userID'];
+  //   $_SESSION['email'] = $data['userEmail'];
+  // }
+  require_once  APPROOT.'/views/includes/header.php';
+?>
+<body>
+
+
+<div>
+<section id="popover-user-profile" class="inline-block w-screen text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+    <div class="p-3">
+        <div class="flex items-center justify-between mb-2">
+            <a href="#">
+                <img class="w-10 h-10 rounded-full" src="<?php echo URLROOT ?>/img/blue-user-icon-of-profile-and-account-vector-42404464.jpg" alt="user photo">
+            </a>
+            <div>
+              <a href="<?php echo URLROOT ?>/userController/signOut" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Logout</a>
             </div>
-            <ul class="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a href="'. URLROOT .'/pages/addWiki" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Wiki</a>
-              </li>
-              <li>
-                <a href="'. URLROOT .'/pages/account" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="'.URLROOT.'/userController/signOut" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-              </li>
-            </ul>
-          </div>';
-        }else{
-          echo 
-          '<a href="'.URLROOT.'/pages/signUp" type="button" class="cursor-pointer me-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Signup</a>
-          <a href="'.URLROOT.'/pages/login" type="button" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Login</a>';
-        }
-        ?>
-        <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-cta" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-        </button>
-      </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-96 md:justify-around md:order-1" id="navbar-cta">
-        <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="<?php echo URLROOT ?>/pages/index" class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500" aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 ">About</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Services</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 ">Contact</a>
-          </li>
+        </div>
+        <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
+            <a href="#"><?php echo $_SESSION['username'] ?></a>
+        </p>
+        <p class="mb-3 text-sm font-normal">
+            <a href="#" class="hover:underline"><?php echo  $_SESSION['email'] ?></a>
+        </p>
+        <p class="mb-4 text-sm">Author at <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Wiki.com</a></p>
+        <ul class="flex text-sm">
+            <li class="me-2">
+                <a href="#" class="hover:underline">
+                    <span class="font-semibold text-gray-900 dark:text-white">799</span>
+                    <span>Wikis</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="hover:underline">
+                    <span class="font-semibold text-gray-900 dark:text-white">3,758</span>
+                    <span>Followers</span>
+                </a>
+            </li>
         </ul>
-      </div>
-      </div>
-    </nav>
-  </header>
+    </div>
+</section>
+<h1 class=" my-7 text-2xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Your Own <span class="underline underline-offset-3 decoration-8 text-blue-600 ">Wikis</span></h1>
+<section class="flex gap-5 flex-wrap justify-around mb-10">
+  <?php
+    if(isset($data['authorWikis'])){
+      foreach($data['authorWikis'] as $wiki){
+  ?>
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href="#">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $wiki->titre ?></h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?php echo substr($wiki->contenu, 0, 100) ?>...</p>
+        <div class=" flex justify-between">
+          <div class="flex items-center justify-center">
+            <img class="rounded-full w-9 h-9" src="<?php echo URLROOT ?>/img/blue-user-icon-of-profile-and-account-vector-42404464.jpg" alt="profile picture">
+            <div class="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
+              <div><?php echo $wiki->username ?></div>
+              <div class="text-sm text-gray-500 dark:text-gray-400 ">Author</div>
+            </div>
+          </div> 
+          <form action="<?php echo URLROOT ?>/pages/wikiPage" method="post">
+            <input type="hidden" name="wikiID" value="<?php echo $wiki->ID ?>">
+            <button type="submit" class="inline-flex items-center px-3 py-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Read more
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </button>
+          </form>
+        </div> 
+    </div>
+  <?php
+      }
+    }
+  ?>
+</section>
+
+
+</div>
+
+<?php 
+require_once APPROOT.'/views/includes/footer.php';
+?>

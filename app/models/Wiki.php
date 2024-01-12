@@ -40,8 +40,20 @@ class Wiki {
 
   }
 
+  public function deleteWiki($wikiID){
+    $query = "DELETE FROM wiki WHERE wiki.ID = :wikiID";
+    $this->pdo->query($query);
+    $this->pdo->bind(':wikiID', $wikiID);
+    $response = $this->pdo->execute();
+    if($response){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   public function getWiki($wikiID){
-    $query = "SELECT w.ID, w.titre, w.contenu, u.username, GROUP_CONCAT(t.name) as tagName, c.name
+    $query = "SELECT w.ID, w.titre, w.contenu, w.authorID, u.username, GROUP_CONCAT(t.name) as tagName, c.name
               FROM wiki as w 
               JOIN wiki_tag as wt 
               ON w.ID = wt.wikiID 
@@ -71,6 +83,27 @@ class Wiki {
               ON u.ID = w.authorID";
     $result = $this->pdo->directQueryMultiple($query);
     return $result;
+  }
+
+  public function getAuthorWikis($authorID){
+    $query = "SELECT w.ID, w.titre, w.contenu, u.username
+              FROM wiki as w
+              JOIN user as u 
+              ON u.ID = w.authorID 
+              WHERE w.authorID = :authorID";
+    $this->pdo->query($query);
+    $this->pdo->bind(':authorID', $authorID);
+    $response = $this->pdo->execute();
+    if($response){
+      $results = $this->pdo->resultSet();
+      if($this->pdo->rowCount() > 0){
+        return $results;
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
   }
 
   public function getLatestWikis(){

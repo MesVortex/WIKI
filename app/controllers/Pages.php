@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  session_start();
+}
+
 class Pages extends Controller{
   private $userModel;
   private $tagModel;
@@ -66,7 +70,17 @@ class Pages extends Controller{
   }
 
   public function account(){
-    $this->view('author/account');
+    if(isset($_SESSION['userID'])){
+      $wikis = $this->wikiModel->getAuthorWikis($_SESSION['userID']);
+      if($wikis){
+        $data = [
+          'authorWikis' => $wikis
+        ];
+        $this->view('author/account', $data);
+      }
+    }else{
+      echo 'no session';
+    }
   }
 
   public function admin(){
