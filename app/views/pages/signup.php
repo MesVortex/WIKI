@@ -5,7 +5,7 @@ require_once  APPROOT.'/views/includes/header.php';
 
 <body style="background-image: url('<?php echo URLROOT ?>/img/lysander-yuen-wk833OrQLJE-unsplash.jpg'); background-size: cover;">
 
-<section class="w-full">
+<section class="w-full mb-20">
   <form id="form" class=" bg-transparent backdrop-filter backdrop-blur-lg mt-20 p-10 border-4 border-blue-600 rounded-lg max-w-md mx-auto" action="<?php echo URLROOT ?>/userController/register" method="post">
     <h1 class=" text-center mb-6 text-xl font-extrabold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"><span class="text-transparent bg-clip-text text-gray-900">Sign Up</span></h1>
     <div class="mb-5">
@@ -35,10 +35,13 @@ require_once  APPROOT.'/views/includes/header.php';
     }
     ?>
     <div class="flex items-start mb-5">
-      <p class="mx-auto text-sm font-medium text-gray-900 ">Already have an account?<a href="<?php echo URLROOT ?>/pages/login" class=" ms-3 text-blue-600 hover:underline ">Login</a></p>
+      <p class="mx-auto text-sm font-medium text-gray-900 ">Already have an account?<a href="<?php echo URLROOT ?>/pages/login" class="font-bold ms-3 text-blue-600 hover:underline ">Login</a></p>
     </div>
     <input type="hidden" name="role" value="2">
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Register new account</button>
+    <div class="flex justify-between">
+      <a href="<?php echo URLROOT ?>/pages/index" class=" self-center font-bold ms-3 text-blue-600 hover:underline "><i class="fa-solid fa-arrow-left me-3"></i>Go Back</a>
+      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Register new account</button>
+    </div>
   </form>
 </section>
   <script src="<?php echo URLROOT?>/js/regex.js"></script>

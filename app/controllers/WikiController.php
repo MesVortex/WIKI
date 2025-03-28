@@ -28,6 +28,29 @@ class WikiController extends Controller{
     }
   }
 
+  public function edit(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      if(isset($_POST['newWikiName']) && isset($_POST['newWikiContent']) && isset($_POST['newCategoryID']) && isset($_POST['newTags'])){
+        $newTitle = filter_var($_POST['newWikiName'], FILTER_SANITIZE_SPECIAL_CHARS); 
+        $wikiID = filter_var($_POST['wikiID'], FILTER_SANITIZE_NUMBER_INT);
+        $newCategoryID = filter_var($_POST['newCategoryID'], FILTER_SANITIZE_NUMBER_INT);
+        $newContent = filter_var($_POST['newWikiContent'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $newTags = $_POST['newTags'];
+        
+        $result = $this->wikiModel->editWiki($newTitle, $newContent, $newCategoryID, $newTags, $wikiID);
+        if($result){
+          header('Location:'. URLROOT .'/pages/account');
+        }else{
+          $Err = "unkown error!";
+          $data = ['err' => $Err];
+          $this->view('pages/index', $data);
+        }
+      }else{
+        echo "empty fields";
+      }
+    }
+  }
+
   public function delete(){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if(isset($_POST['wikiID'])){

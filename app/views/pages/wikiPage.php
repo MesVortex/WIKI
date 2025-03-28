@@ -3,83 +3,18 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
   session_start();
 }
 
-// if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
-//   $_SESSION['username'] = $data['username'];
-//   $_SESSION['userID'] = $data['userID'];
-//   $_SESSION['email'] = $data['userEmail'];
-// }
+if(isset($_SESSION['userID']) && $_SESSION['userRole'] == 1){
+  header('Location:'. URLROOT .'/pages/admin');
+}
+
 require_once  APPROOT.'/views/includes/header.php';
 ?>
+
 <body>
 
-  <header class="">
-    <nav class="bg-white border-gray-200">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com" class="flex ms-2">
-          <img src="<?php echo URLROOT ?>/img/logo.png" class="h-8" alt="Wiki Logo" />
-          <span class="self-center text-gray-500 text-xl font-bold sm:text-2xl whitespace-nowrap">iki</span>
-        </a>
-      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <?php
-        if(isset($_SESSION['username']) && isset($_SESSION['userID']) && isset($_SESSION['email'])){
-          echo 
-          '<button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-            <span class="sr-only">Open user menu</span>
-            <img class="w-8 h-8 rounded-full" src="'.URLROOT.'/img/blue-user-icon-of-profile-and-account-vector-42404464.jpg" alt="user photo">
-          </button>
-          <!-- Dropdown menu -->
-          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-            <div class="px-4 py-3">
-              <span class="block text-sm text-gray-900 dark:text-white">'. $_SESSION['username'] .'</span>
-              <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">'. $_SESSION['email'] .'</span>
-            </div>
-            <ul class="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a href="'. URLROOT .'/pages/addWiki" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Wiki</a>
-              </li>
-              <li>
-                <a href="'. URLROOT .'/pages/account" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="'.URLROOT.'/userController/signOut" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-              </li>
-            </ul>
-          </div>';
-        }else{
-          echo 
-          '<a href="'.URLROOT.'/pages/signUp" type="button" class="cursor-pointer me-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Signup</a>
-          <a href="'.URLROOT.'/pages/login" type="button" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Login</a>';
-        }
-        ?>
-        <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-cta" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-        </button>
-      </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-96 md:justify-around md:order-1" id="navbar-cta">
-        <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="<?php echo URLROOT ?>/pages/index" class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500" aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 ">About</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Services</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 ">Contact</a>
-          </li>
-        </ul>
-      </div>
-      </div>
-    </nav>
-  </header>
+  <?php require_once  APPROOT.'/views/includes/indexNavbar.php'; ?>
 
-
-<section class=" p-10">
+<section class="p-10">
   <?php
     if(isset($data['currentWiki'])){
       $wiki = $data['currentWiki'];
@@ -96,27 +31,30 @@ require_once  APPROOT.'/views/includes/header.php';
           </button>
           <div id="speed-dial-menu-dropdown" class="flex flex-col justify-end hidden py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm dark:border-gray-600 dark:bg-gray-700">
               <ul class="text-sm text-gray-500 dark:text-gray-300">
-              <li>
-                <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
-                  <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                    <path d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z"/>
-                    <path d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z"/>
-                  </svg>
-                  <span class="text-sm font-medium">Copy</span>
-                </a>
-              </li>
-              <li>
-                <form action="'. URLROOT .'/wikiController/delete" method="post"> 
-                  <input type="hidden" name="wikiID" value="'. $wiki->ID .'">
-                  <button type="submit" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
-                    <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
-                       <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-                    </svg>
-                    <span class="text-sm font-medium">delete</span>
-                  </button>
-                </form>
-              </li>
+                <li>
+                  <form action="'. URLROOT .'/pages/editWiki" method="post"> 
+                    <input type="hidden" name="wikiID" value="'. $wiki->ID .'">
+                    <button type="submit" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                      <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                        <path d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z"/>
+                        <path d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z"/>
+                      </svg>
+                      <span class="text-sm font-medium">Edit</span>
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <form action="'. URLROOT .'/wikiController/delete" method="post"> 
+                    <input type="hidden" name="wikiID" value="'. $wiki->ID .'">
+                    <button type="submit" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                      <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                        <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                      </svg>
+                      <span class="text-sm font-medium">delete</span>
+                    </button>
+                  </form>
+                </li>
               </ul>
           </div>
       </div>';
@@ -126,6 +64,7 @@ require_once  APPROOT.'/views/includes/header.php';
     <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-blue-600 rounded-full me-1.5 flex-shrink-0"></span><?php echo $wiki->name ?></span>
     <h2 class="text-4xl font-extrabold dark:text-white mt-3"><?php echo $wiki->titre ?></h2>
   </div>
+  <p class="mb-4 mt-2 text-sm italic text-gray-500">Published On <?php echo $wiki->date ?></p>
   <p class="my-4 text-lg text-gray-500"><?php echo $wiki->contenu ?></p>
   <?php
     foreach($tags as $t){

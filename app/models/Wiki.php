@@ -7,8 +7,14 @@ class Wiki {
     $this->pdo = Database::getInstance();
   }
 
-  public function countWikis(){
-    $query = "SELECT COUNT(wiki.ID) as wikiCount FROM wiki";
+  public function countArchivedWikis(){
+    $query = "SELECT COUNT(wiki.ID) as wikiCount FROM wiki WHERE wiki.status = 0";
+    $result = $this->pdo->directQuery($query);
+    return $result->wikiCount;
+  }
+
+  public function countUnarchivedWikis(){
+    $query = "SELECT COUNT(wiki.ID) as wikiCount FROM wiki WHERE wiki.status = 1";
     $result = $this->pdo->directQuery($query);
     return $result->wikiCount;
   }
@@ -33,6 +39,39 @@ class Wiki {
     }
 
     if($response1 && $response2){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+  
+  public function editWiki($newTitle, $newContent, $newCategoryID, $newTags, $wikiID){
+    $query1 = "UPDATE wiki SET wiki.titre = :title , wiki.contenu = :content, wiki.categorieID = :categoryID WHERE wiki.ID = :wikiID";
+    $this->pdo->query($query1);
+    $this->pdo->bind(':title', $newTitle);
+    $this->pdo->bind(':content', $newContent);
+    $this->pdo->bind(':categoryID', $newCategoryID);
+    $this->pdo->bind(':wikiID', $wikiID);
+    $response1 = $this->pdo->execute();
+
+    foreach($newTags as $tag){
+      $query2 = "DELETE FROM wiki_tag WHERE wiki_tag.wikiID = :wikID";
+      $this->pdo->query($query2);
+      $this->pdo->bind(':wikID', $wikiID);
+      $response2 = $this->pdo->execute();
+    }
+
+    
+    foreach($newTags as $tag){
+      $query3 = "INSERT INTO wiki_tag(wikiID, tagID) VALUES(:wikiID, :tagID)";
+      $this->pdo->query($query3);
+      $this->pdo->bind(':wikiID', $wikiID);
+      $this->pdo->bind(':tagID', $tag);
+      $response3 = $this->pdo->execute();
+    }
+
+    if($response1 && $response2 && $response3){
       return true;
     }else{
       return false;
@@ -65,16 +104,12 @@ class Wiki {
   }
 
   public function getWiki($wikiID){
-    $query = "SELECT w.ID, w.titre, w.contenu, w.authorID, u.username, GROUP_CONCAT(t.name) as tagName, c.name
+    $query = "SELECT w.ID, w.titre, w.contenu, w.authorID, w.date, u.username, GROUP_CONCAT(t.name) as tagName, c.name
               FROM wiki as w 
-              JOIN wiki_tag as wt 
-              ON w.ID = wt.wikiID 
-              JOIN user as u 
-              ON u.ID = w.authorID 
-              JOIN tag as t 
-              ON t.ID = wt.tagID
-              JOIN categorie as c
-              ON c.ID = w.categorieID
+              JOIN wiki_tag as wt ON w.ID = wt.wikiID 
+              JOIN user as u ON u.ID = w.authorID 
+              JOIN tag as t ON t.ID = wt.tagID
+              JOIN categorie as c ON c.ID = w.categorieID
               GROUP BY w.ID, w.titre, w.contenu, u.username, c.name
               HAVING w.ID = :wikiID";
     $this->pdo->query($query);
@@ -89,7 +124,7 @@ class Wiki {
   }
 
   public function getAllWikis(){
-    $query = "SELECT w.ID, w.titre, w.contenu, w.status, u.username
+    $query = "SELECT w.ID, w.titre, w.contenu, w.status, w.date, u.username
               FROM wiki as w
               JOIN user as u 
               ON u.ID = w.authorID";
@@ -140,5 +175,29 @@ class Wiki {
     $result = $this->pdo->directQueryMultiple($query);
     return $result;
   }
+
+  public function searchWiki($search){
+    try {
+      $searchTerm = '%' . $search . '%';
+      $query = "SELECT DISTINCT w.ID, w.titre, w.contenu, u.username
+                FROM wiki AS w
+                JOIN user AS u ON u.ID = w.authorID
+                JOIN categorie AS c ON c.ID = w.categorieID
+                JOIN wiki_tag AS wt ON wt.wikiID = w.ID
+                JOIN tag AS t ON t.ID = wt.tagID
+                WHERE  w.titre LIKE :input OR c.name LIKE :input OR t.name LIKE :input
+                AND w.status = 1";
+    
+      $this->pdo->query($query);
+    
+      $this->pdo->bind(":input", $searchTerm);
+      $res = $this->pdo->resultSet();
+      return $res;
+
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
+
+}
 
 }

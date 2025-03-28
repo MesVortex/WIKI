@@ -54,6 +54,25 @@ class Pages extends Controller{
     $this->view('author/addWiki', $data);
   }
 
+  public function editWiki(){
+    $categories = $this->categoryModel->getAllCategories();
+    $tags = $this->tagModel->getAllTags();
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      if(isset($_POST['wikiID'])){
+        $wikiID = filter_var($_POST['wikiID'], FILTER_SANITIZE_NUMBER_INT);
+        $wiki = $this->wikiModel->getWiki($wikiID);
+        if($wiki){
+          $data = [
+            'allCategories' => $categories,
+            'allTags' => $tags,
+            'currentWiki' => $wiki
+          ];
+          $this->view('author/editWiki', $data);
+        }
+      }
+    }
+  }
+
   public function wikiPage(){   
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if(isset($_POST['wikiID'])){
@@ -88,7 +107,8 @@ class Pages extends Controller{
       'usersCount' => $this->userModel->countUsers(),
       'categoriesCount' => $this->categoryModel->countCategories(),
       'tagsCount' => $this->tagModel->countTags(),
-      'wikisCount' => $this->wikiModel->countWikis()
+      'ArchivedWikisCount' => $this->wikiModel->countArchivedWikis(),
+      'UnarchivedWikisCount' => $this->wikiModel->countUnarchivedWikis()
     ];
     $this->view('admin/dashboard', $data);
   }

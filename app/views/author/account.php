@@ -3,11 +3,12 @@
     session_start();
   }
 
-  // if(isset($data['username']) && isset($data['userID']) && isset($data['userEmail'])){
-  //   $_SESSION['username'] = $data['username'];
-  //   $_SESSION['userID'] = $data['userID'];
-  //   $_SESSION['email'] = $data['userEmail'];
+  // if(!isset($_SESSION['userID'])){
+  //   header('Location:'. URLROOT .'/pages/index');
+  // }elseif(isset($_SESSION['userID']) && $_SESSION['userRole'] == 2){
+  //   header('Location:'. URLROOT .'/pages/admin');
   // }
+
   require_once  APPROOT.'/views/includes/header.php';
 ?>
 <body>
@@ -30,7 +31,7 @@
         <p class="mb-3 text-sm font-normal">
             <a href="#" class="hover:underline"><?php echo  $_SESSION['email'] ?></a>
         </p>
-        <p class="mb-4 text-sm">Author at <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Wiki.com</a></p>
+        <p class="mb-4 text-sm">Author at <a href="<?php echo URLROOT ?>/pages/index" class="text-blue-600 dark:text-blue-500 hover:underline">Wiki.com</a></p>
         <ul class="flex text-sm">
             <li class="me-2">
                 <a href="#" class="hover:underline">

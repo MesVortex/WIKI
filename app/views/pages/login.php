@@ -42,9 +42,12 @@ require_once  APPROOT.'/views/includes/header.php';
       }
       ?>
       <div class="flex items-start mb-5">
-        <p class="mx-auto text-sm font-medium text-gray-900 ">New To Wiki?<a href="<?php echo URLROOT ?>/pages/signUp" class=" ms-3 text-blue-600 hover:underline ">Sign Up</a></p>
+        <p class="mx-auto text-sm font-medium text-gray-900 ">New To Wiki?<a href="<?php echo URLROOT ?>/pages/signUp" class="font-bold ms-3 text-blue-600 hover:underline ">Sign Up</a></p>
       </div>
-      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Login</button>
+      <div class="flex justify-between">
+        <a href="<?php echo URLROOT ?>/pages/index" class=" self-center font-bold ms-3 text-blue-600 hover:underline "><i class="fa-solid fa-arrow-left me-3"></i>Go Back</a>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Login</button>
+      </div>
     </form>
   </section>
 
